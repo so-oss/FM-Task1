@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     var mytimer:Timer!
 
@@ -15,13 +15,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var date: UILabel!
     
+    @IBOutlet weak var stockListTable: UITableView!
+    
+    let stock = ["apple", "orange","melon"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
-        //Storyboard上で設定したので不要
-        //var initCount = 0
-        //countLabel.text = String(initCount)
     
         timecheck()
         
@@ -60,7 +60,15 @@ class ViewController: UIViewController {
     
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return stock.count
+    }
     
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "stockList", for: indexPath)
+        cell.textLabel!.text = stock[indexPath.row]
+        return cell
+    }
+
 }
 
