@@ -15,19 +15,21 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var commentField: UITextField!
     
     var mytimer:Timer!
-    var stock = [String]()
+    var commentArray = [String]()
+    var timeArray = [String]()
+    var countArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        countLabel.text = String(0)
         timecheck()
         mytimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timecheck), userInfo: nil, repeats: true)
     
         stockListTable.dataSource = self
         stockListTable.delegate = self
         commentField.delegate = self
-        
-    
+
     }
         
     @IBAction func countUpButton(_ sender: Any) {
@@ -49,7 +51,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func addStockList(_ sender: Any) {
-        stock.append(commentField.text!)
+        commentArray.append(commentField.text!)
+        timeArray.append(date.text!)
+        countArray.append(countLabel.text!)
         commentField.text = ""
         stockListTable.reloadData()
     }
@@ -62,13 +66,35 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         date.text = formatter.string(from: nowdate)
     }
     
+    @IBAction func cellDelete(_ sender: Any) {
+//        timeArray.remove(at: indexPath.row)
+//        tableView.deleteRows(at: indexPath, with: automatic)
+
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stock.count
+        return commentArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "stockList", for: indexPath)
-        cell.textLabel!.text = stock[indexPath.row]
+        
+        let commentCell = cell.contentView.viewWithTag(1) as! UILabel
+        let timeCell = cell.contentView.viewWithTag(2) as! UILabel
+        let countCell = cell.contentView.viewWithTag(3) as! UILabel
+        
+        commentCell.text = commentArray[indexPath.row]
+        timeCell.text = timeArray[indexPath.row]
+        countCell.text = countArray[indexPath.row]
+        
+        let nowCount = Int(countArray[indexPath.row])
+        if nowCount! % 2 == 0{
+            cell.backgroundColor = UIColor.yellow
+        }else{
+            cell.backgroundColor = UIColor.green
+        }
         
         return cell
     }
