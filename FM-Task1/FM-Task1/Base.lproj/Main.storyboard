@@ -124,7 +124,7 @@
                                                         <color key="baseForegroundColor" systemColor="labelColor"/>
                                                     </buttonConfiguration>
                                                     <connections>
-                                                        <action selector="cellDelete:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dND-f8-yDI"/>
+                                                        <action selector="cellDelete:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vJp-EX-aVP"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6n-Rm-CGL">

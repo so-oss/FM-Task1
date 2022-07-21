@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
 
     @IBOutlet weak var countLabel: UILabel!
@@ -18,6 +19,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var commentArray = [String]()
     var timeArray = [String]()
     var countArray = [String]()
+    var indexPath = IndexPath()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         stockListTable.reloadData()
     }
     
+    @IBAction func cellDelete(_ sender: Any) {
+        
+        timeArray.remove(at: indexPath.row)
+        countArray.remove(at: indexPath.row)
+        commentArray.remove(at: indexPath.row)
+        stockListTable.reloadData()
+        
+    }
+    
     @objc func timecheck(){
         //時間を表示する
         let nowdate = Date()
@@ -65,14 +76,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         formatter.setLocalizedDateFormatFromTemplate("Hms")
         date.text = formatter.string(from: nowdate)
     }
-    
-    @IBAction func cellDelete(_ sender: Any) {
-//        timeArray.remove(at: indexPath.row)
-//        tableView.deleteRows(at: indexPath, with: automatic)
-
-    }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commentArray.count
@@ -85,6 +88,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let timeCell = cell.contentView.viewWithTag(2) as! UILabel
         let countCell = cell.contentView.viewWithTag(3) as! UILabel
         
+        cell.tag = indexPath.row
+        self.indexPath = indexPath
+
+
         commentCell.text = commentArray[indexPath.row]
         timeCell.text = timeArray[indexPath.row]
         countCell.text = countArray[indexPath.row]
@@ -104,7 +111,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
@@ -112,4 +118,5 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 
     
 }
+
 
